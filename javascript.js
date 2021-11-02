@@ -1,69 +1,60 @@
-class Producto{
-    constructor(precio,nombre,stock){
-        this.precio = precio;
-        this.nombre = nombre;
-        this.stock = stock;
-    }
+
+let nombreUsuario = document.getElementById("nombreUsuario")
+  let apellidoUsuario = document.getElementById("apellidoUsuario")
+  let mailUsuario = document.getElementById("mailUsuario")
+  let texto = document.getElementById("texto")
+
+  array =[]
+  console.log (array)
+function formulario (e){
+  
+ e.preventDefault(e)
+  if ( nombreUsuario.value != "" && apellidoUsuario.value != "" && mailUsuario.value != "" && texto.value != ""){
+    console.log("Bienvenido " + nombreUsuario.value)
+    let parrafo1 = document.createElement ("p")
+  let cartel = document.getElementById ("cartel")
+    parrafo1.innerHTML = ("Bienvenido/a " + nombreUsuario.value)
+    cartel.appendChild (parrafo1)
+    array.push({ nombre: nombreUsuario.value , apellido: apellidoUsuario.value , mail: mailUsuario.value , texto: texto.value})
+    
+
+} else if (nombreUsuario.value == "" || apellidoUsuario.value == "" || mailUsuario.value == "" || texto.value == "") {
+   let parrafoNuevo = document.createElement ("p")
+   let cartel = document.getElementById ("cartel")
+    parrafoNuevo.innerHTML = ("Error")
+    cartel.appendChild (parrafoNuevo)
+}
 }
 
-let producto1 = new Producto(480,"collar", 4);
-let producto2 = new Producto(400,"esmalte", 5);
-let producto3 = new Producto(300,"aros", 12);
-let producto4 = new Producto(500,"velas", 6);
+let boton1 = document.getElementById ("boton")
+boton1.addEventListener ("click", formulario)
 
-let Galeria = [producto1, producto2, producto3, producto4];
-console.log(Galeria)
 
-let Carrito = [];
-let suma = 0;
+let botonCompra = document.querySelectorAll (".botonCompra")
+console.log(botonCompra)
 
-function main(){
-    let opcion = mostrarProductos();
+const carrito = []
 
-    while(opcion != 0){
-        switch(opcion){
-            case 1:
-                alert("Agregaste una " + Galeria[0].nombre)
-                agregarProducto(Galeria[0])
-                suma = suma + Galeria[0].precio;
-                break;
-
-            case 2:
-                alert("Agregaste una "+ Galeria[1].nombre)
-                agregarProducto(Galeria[1]);
-                suma = suma + Galeria[1].precio;
-                break;
-            case 3:
-                alert("Agregaste una " + Galeria[2].nombre)
-                agregarProducto(Galeria[2])
-                suma = suma + Galeria[2].precio;
-                break;
-
-            case 4:
-                alert("Agregaste una "+ Galeria[3].nombre)
-                agregarProducto(Galeria[3]);
-                suma = suma + Galeria[3].precio;
-                break;
-
-            default:
-                alert("Ingreso incorrecto");
-                break;
-        }
-
-        opcion = mostrarProductos();
-    }
-console.log(Carrito);
-console.log(suma)
+for (let boton of botonCompra){
+  boton.addEventListener ("click" , agregarCarrito) /*cada vez que se realiza click se ejecuta lo que aparece en agregarCarrito*/
 }
 
-function mostrarProductos(){
-    let opcion = parseInt(prompt("SELECCIONE PRODUCTO, presione 0 para salir:\n\n 1- collar, presione 1\n\n 2- esmalte, presione 2 \n\n 3- aros, presione 3\n\n 4- velas, presione 4" ));
-    return opcion;
+function agregarCarrito(e){  
+  let hijo = e.target;  /*e.target trae donde se realizo el click*/
+  let padre = hijo.parentNode; /*parentNode nos trae el padre del elemento hijo, en este caso donde se realizo el click*/
+  let img = padre.querySelector ("img").src;
+  let parrafo = padre.querySelector ("p").textContent;
+  let titulo = padre.querySelector ("h6").textContent;
+  const producto = {
+    nombre: titulo
+  }
+
+ 
+  console.log (img)
+  console.log (parrafo)
+  console.log (titulo)
+
+   carrito.push(producto)
 }
 
-function agregarProducto(producto){
-    Carrito.push(producto);
-}
-
-
-main();
+console.log(carrito)
