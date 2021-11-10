@@ -7,6 +7,7 @@
     <meta name= "description" content= "Contacto de Cocobox">
     <meta name="keywords" content="tienda, regalos, cajas, accesorios, femeninas">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 </head>
 
 <body class="contacto1">
@@ -29,9 +30,10 @@
  
     <section class="flex">
        <h1 class="otrotitulo" >¡Contactanos!</h1>
+       <div id="cartel">
         <form class="formulario">
         <div >
-            <div id="cartel"></div>
+           
            <label for="Nombre">Nombre:</label>
            <input type="text" name="Nombre" class="input" id="nombreUsuario">
            <label for="Apellido">Apellido:</label>
@@ -40,9 +42,11 @@
            <input type="email" name="E-mail" class="input" id="mailUsuario">
            <label for="Comentarios">Comentarios:</label>
            <textarea id="texto"></textarea>
+           <div class="error"></div>
        <input type="submit" value="Enviar" class="enviar" id="boton">
        </div>
        </form>
+        </div>
     </section>
 
 <section class="preguntas">
