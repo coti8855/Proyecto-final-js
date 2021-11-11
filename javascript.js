@@ -1,62 +1,32 @@
 
+let botonCompra = document.querySelectorAll (".botonCompra")
+console.log(botonCompra)
 
-$(".boton1").on("click", function(e){
-$(".listaCarrito").append(`<h6>VINCHASd</h6>`).css("color", "red")  
-})
+const carrito = []
 
-$(".boton2").on("click", function(e){
-$(".listaCarrito").append(`<h6>VINCHASs</h6>`).css("color", "red")  
-})
+for (let boton of botonCompra){
+  boton.addEventListener ("click" , agregarCarrito) /*cada vez que se realiza click se ejecuta lo que aparece en agregarCarrito*/
+}
 
-$(".boton3").on("click", function(e){
-$(".listaCarrito").append(`<h6>VINCHASa</h6>`).css("color", "red")  
-})
+function agregarCarrito(e){  
+  let hijo = e.target;  /*e.target trae donde se realizo el click*/
+  let padre = hijo.parentNode; /*parentNode nos trae el padre del elemento hijo, en este caso donde se realizo el click*/
+  let img = padre.querySelector ("img").src;
+  let parrafo = padre.querySelector ("p").textContent;
+  let titulo = padre.querySelector ("h6").textContent;
+  $(".listaCarrito").append(`<p>Producto:${titulo}</p>`)
+  const producto = {
 
-$(".boton4").on("click", function(e){
-$(".listaCarrito").append(`<h6>VINCHASe</h6>`).css("color", "red")  
-})
+    nombre: titulo
+  }
 
-$(".boton5").on("click", function(e){
-$(".listaCarrito").append(`<h6>VINCHASr</h6>`).css("color", "red")  
-})
+ 
+  console.log (img)
+  console.log (parrafo)
+  console.log (titulo)
 
-$(".boton6").on("click", function(e){
-$(".listaCarrito").append(`<h6>VINCHASu</h6>`).css("color", "red")  
-})
+   carrito.push(producto)
+}
 
-$(".boton6").on("click", function(e){
-$(".listaCarrito").append(`<h6>VINCHASy</h6>`).css("color", "red")  
-})
-
-$(".boton7").on("click", function(e){
-$(".listaCarrito").append(`<h6>VINCHASf</h6>`).css("color", "red")  
-})
-
-$(".boton8").on("click", function(e){
-$(".listaCarrito").append(`<h6>VINCHASd</h6>`).css("color", "red")  
-})
-
-$(".boton9").on("click", function(e){
-$(".listaCarrito").append(`<h6>VINCHAS</h6>`).css("color", "red")  
-})
-
-$(".boton10").on("click", function(e){
-$(".listaCarrito").append(`<h6>VINCHASs</h6>`).css("color", "red")  
-})
-
-$(".boton11").on("click", function(e){
-$(".listaCarrito").append(`<h6>VINCHASw</h6>`).css("color", "red")  
-})
-
-$(".boton12").on("click", function(e){
-$(".listaCarrito").append(`<h6>VINCHAS3</h6>`).css("color", "red")  
-})
-
-$(".boton13").on("click", function(e){
-$(".listaCarrito").append(`<h6>VINCHAS5</h6>`).css("color", "red")  
-})
-
-$(".boton14").on("click", function(e){
-$(".listaCarrito").append(`<h6>VINCHASt</h6>`).css("color", "red")  
-})
+console.log(carrito)
 
