@@ -1,13 +1,6 @@
-
-let botonCompra = document.querySelectorAll (".botonCompra")
-console.log(botonCompra)
-
 carrito = []
-for (let boton of botonCompra){
-  boton.addEventListener ("click" , agregarCarrito) 
-}
 
-function agregarCarrito(e){  
+$(".botonCompra").on("click", function(e){  
   let hijo = e.target;  
   let padre = hijo.parentNode; 
   let img = padre.querySelector ("img").src;
@@ -15,6 +8,8 @@ function agregarCarrito(e){
   let titulo = padre.querySelector ("h6").textContent;
 
     $(".listaCarrito").append(`<p>Producto:${titulo} Precio: ${parrafo}</p>`)
+
+
   let producto = {
 
     nombre: titulo,
@@ -22,16 +17,13 @@ function agregarCarrito(e){
   
   }
 
- 
+
   console.log (img)
   console.log (parrafo)
   console.log (titulo)
 
    carrito.push(producto)
-}
-
-console.log(carrito)
-
+})
 
 
 
