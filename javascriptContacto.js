@@ -30,3 +30,21 @@ function mostrar (){
     localStorage.setItem ("Usuarios", arrayJSON )
 }
 
+let urlClima = "http://api.openweathermap.org/data/2.5/weather?q=Cordoba&appid=b89a7855a3ebc5dcdfbf5835e9af11c5"
+
+$(".clima").on("click", function(){
+ $.get(urlClima, function (datos){
+ $(".probandoAjax").append(`<h6>${datos.weather[0].description}</h6>`)
+
+  console.log(datos.weather[0].description)
+  console.log(datos)
+
+    })
+ })
+
+$(".clima2").on("click", function(){
+ $.get(urlClima, function (datos){
+ $(".probandoAjax").append(`<h6>${datos.main.temp}</h6>`)
+
+    })
+ })
