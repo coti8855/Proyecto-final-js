@@ -111,27 +111,30 @@
 
           })
 carrito = []
+total = []
  const listaCarrito = document.querySelector (`.listaCarrito`)
+
 const agregarCarrito= item =>{
   
     const productos = {  
     nombre:item.querySelector(`h6`).textContent,
-    precio:item.querySelector(`p`).textContent,
+    precio:parseInt(item.querySelector(`p`).textContent),
     id: item.querySelector(`.button`).dataset.id,
     cantidad: 1
     }
      
      
+
+     
    if(carrito.hasOwnProperty(productos.id)){
          
           productos.cantidad = carrito[productos.id].cantidad + 1
-          
+          productos.precio = parseInt(carrito[productos.id].precio) * productos.cantidad
           
    }
-   console.log(productos)
-    let nuevoCarroo = document.createElement("p")
+       let nuevoCarroo = document.createElement("p")
           let nuevoCarro = document.createElement("h6")
-          nuevoCarro.textContent = productos.cantidad + " " + productos.nombre
+          nuevoCarro.textContent = productos.cantidad + " " + productos.nombre 
           listaCarrito.appendChild(nuevoCarro)
           nuevoCarroo.textContent = productos.precio
           listaCarrito.appendChild(nuevoCarroo)
@@ -139,6 +142,13 @@ const agregarCarrito= item =>{
 
     carrito[productos.id] = {...productos} 
     console.log(carrito)
+    
+  
+
+ 
+
 }
  
+
+
 
