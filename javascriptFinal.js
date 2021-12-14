@@ -110,11 +110,11 @@
 })
 
           })
-carrito = []
+carrito = {}
 total = []
 
  const listaCarrito = document.querySelector (`.listaCarrito`)
-
+ const templateCarrito = document.querySelector (`.templateCarrito`)
 const agregarCarrito= item =>{
     const productos = {  
     nombre:item.querySelector(`h6`).textContent,
@@ -122,62 +122,95 @@ const agregarCarrito= item =>{
     id: item.querySelector(`.button`).dataset.id,
     cantidad: 1
     }
-     
-    
 
+      
+   /*si ya existe no lo vuelve a crear*/
       if(carrito.hasOwnProperty(productos.id)){        
-          productos.cantidad = carrito[productos.id].cantidad + 1
-          
-          
-
+          productos.cantidad = carrito[productos.id].cantidad + 1                 
    }
-  
 
-    let botonBorrar = document.createElement("button")
-       let nuevoCarroo = document.createElement("p")
-          let nuevoCarro = document.createElement("h6")
-          
-       
-                 nuevoCarro.textContent = productos.cantidad + " " + productos.nombre 
-                 productos.precio = parseInt(productos.precio) * productos.cantidad
- 
-          listaCarrito.appendChild(nuevoCarro)
-          nuevoCarroo.textContent = productos.precio
-          listaCarrito.appendChild(nuevoCarroo)
-             listaCarrito.appendChild(botonBorrar)
-            
-
-               botonBorrar.textContent = "x"
+  carrito[productos.id] = {...productos} 
               
-          botonBorrar.addEventListener (`click`, function (e){
-            if ( productos.cantidad == 1){
-                  nuevoCarroo.remove()
-                   nuevoCarro.remove()
-                   botonBorrar.remove()
-                   
-                 } else {
-                  productos.cantidad = productos.cantidad - 1
-                  
-                 }
-                 nuevoCarro.textContent = productos.cantidad + " " + productos.nombre 
-                  productos.precio = (parseInt(productos.precio) / (productos.cantidad + 1)) * productos.cantidad
-                 nuevoCarroo.textContent = productos.precio                           
-              
-         })
+              pintarCarrito()
+ }
 
-  
-       
- total[productos.id] = productos.precio 
+  const items = document.querySelector ("#items")
+  const pintarCarrito = () =>{ 
+    const template = document.querySelector (`#template-carrito`).content
+    const fragment = document.createDocumentFragment()
+    Object.values(carrito).forEach(productos =>{
+      items.innerHTML = ``
+      console.log(productos)
+      template.querySelector(`th`).textContent = productos.id 
+      template.querySelectorAll(`td`)[0].textContent = productos.nombre 
+      template.querySelectorAll(`td`)[1].textContent = productos.cantidad 
+      template.querySelectorAll(`td`)[3].textContent = productos.precio * productos.cantidad
+      template.querySelector(`.btn-info`).dataset.id = productos.id 
+      template.querySelector(`.btn-danger`).dataset.id = productos.id 
 
-carrito[productos.id] = {...productos} 
-    console.log(carrito)
-         
-               
 
-      console.log(total)
-   
+      const clone = template.cloneNode(true)
+      fragment.appendChild(clone)
+    })
+    items.appendChild(fragment)
+    pintarFooter()
+    accionBotones()
+  }
 
+const footer = document.querySelector (`#footer-carrito`)
+const pintarFooter = () =>{
+  footer.innerHTML = ``
+  const template = document.querySelector (`#template-footer`).content
+  const fragment = document.createDocumentFragment()
+  const nuevaCantidad = Object.values(carrito).reduce((acc, {cantidad}) => acc + cantidad, 0)
+  console.log(nuevaCantidad)
+  const nuevoPrecio = Object.values(carrito).reduce((acc, {cantidad, precio}) => acc + cantidad * precio, 0)
+  console.log(nuevoPrecio)
+  template.querySelectorAll(`td`)[0].textContent = nuevaCantidad
+  template.querySelector(`span`).textContent = nuevoPrecio
+
+  const clone = template.cloneNode(true)
+  fragment.appendChild(clone)
+  footer.appendChild(fragment)
+ const boton = document.querySelector(`#vaciar-carrito`)
+ boton.addEventListener(`click`, () =>{
+  carrito = {}
+  items.innerHTML = ``
+  pintarCarrito()
+ })
 }
 
+const accionBotones = () => {
+  const botonesAgregar = document.querySelectorAll(`#items .btn-info`)
+  const botonesEliminar = document.querySelectorAll(`#items .btn-danger`)
 
+botonesAgregar.forEach(btn =>{
+  btn.addEventListener(`click`, () =>{
+    console.log(`agregando...`)
+    const productos = carrito[btn.dataset.id]
+    productos.cantidad ++
+    carrito[btn.dataset.id] = {...productos}
+    pintarCarrito()
+  })
+})
+  botonesEliminar.forEach(btn =>{
+  btn.addEventListener(`click`, () =>{
+    console.log(`eliminando...`)
+    const productos = carrito[btn.dataset.id]
+    productos.cantidad --
+    if(productos.cantidad === 0){
+       delete carrito[btn.dataset.id]
+    }else {
+      carrito[btn.dataset.id] = {...productos}
+    
+    }
+    pintarCarrito()
+  })
+})
+  console.log(carrito)
+}
+              
+         
+             
+ 
 
